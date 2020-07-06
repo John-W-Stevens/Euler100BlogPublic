@@ -1,0 +1,233 @@
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = $"Problem {Model.ProblemNumber}";
+    Boolean IsLoggedIn = Context.Session.GetInt32("UserId") != null;
+    Boolean IsConfirmed = Context.Session.GetInt32("IsConfirmed") != null;
+}
+
+@model EulerPost
+@{
+    string UpdateUrl = $"/problem/{@Model.EulerPostId}/update";
+    Boolean SolvedinPython = Model.PythonCode != null;
+    Boolean SolvedinJavaScript = Model.JavaScriptCode != null;
+    Boolean SolvedinCSharp = Model.CSharpCode != null;
+}
+
+<div class="row header-row" id="eulerpost">
+    <div class="col-12 text-center">
+        <h2 id="title">Problem @Model.ProblemNumber - @Model.Title</h2>
+        <p class="datetime-p"><small>Last updated on @Model.UpdatedAt.ToString("MMM dd, yyyy") at @Model.UpdatedAt.ToString("h:mm tt")</small></p>
+        <a href=@Model.Url target="_blank" rel="noopener noreferrer">@Model.Url</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1">
+        <h4 class="field-header">Problem: </h4>
+        @{string[] Lines = Model.Problem.Split(new[] { Environment.NewLine }, StringSplitOptions.None); }
+        @foreach (var line in Lines)
+        {
+            <p>@line</p>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1">
+        <h4 class="field-header">Observations: </h4>
+        @{string[] Observations = Model.Observations.Split(new[] { Environment.NewLine }, StringSplitOptions.None); }
+        @foreach (var observation in Observations)
+        {
+            <p>@observation</p>
+        }
+    </div>
+</div>
+
+<div class="row code-header">
+    <div class="col-12 col-md-10 offset-md-1">
+        <h4 class="field-header">Analysis: </h4>
+        @{string[] Analysis = Model.Analysis.Split(new[] { Environment.NewLine }, StringSplitOptions.None); }
+        @foreach (var statement in Analysis)
+        {
+            <p>@statement</p>
+        }
+    </div>
+</div>
+
+@if (SolvedinPython)
+{
+    <div class="row code-header">
+        <div class="col-12 col-md-10 offset-md-1">
+            <h4>Python3 Solution:</h4>
+            <pre><code class="python">@Model.PythonCode</code></pre>
+        </div>
+    </div>
+}
+
+@if (SolvedinJavaScript)
+{
+    <div class="row code-header">
+        <div class="col-12 col-md-10 offset-md-1">
+            <h4>JavaScript Solution:</h4>
+            <pre><code class="javascript">@Model.JavaScriptCode</code></pre>
+        </div>
+    </div>
+}
+@if (SolvedinCSharp)
+{
+    <div class="row code-header">
+        <div class="col-12 col-md-10 offset-md-1">
+            <h4>C# Solution:</h4>
+            <pre><code class="c#">@Model.CSharpCode</code></pre>
+        </div>
+    </div>
+}
+
+@if (Model.CodeLink != null)
+{
+    <div class="row code-header">
+        <div class="col-12 col-md-10 offset-md-1 text-center">
+            <a href="@Model.CodeLink" target="_blank" rel="noopener noreferrer">Codes on GitHub</a>
+        </div>
+    </div>
+}
+
+@if (Model.Modules.Count > 0)
+{
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1">
+        <h4 class="field-header">Modules Used: </h4>
+        <table class="table table-sm table-bordered table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th>Module:</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var module in Model.Modules.OrderBy(m => m.Module.ModuleId))
+                {
+                    string url = $"/module/{module.Module.ModuleId}";
+                    <tr>
+                        <td><a href=@url>@module.Module.Name</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+}
+
+<div class="row code-header">
+    <div class="col-12 col-md-10 offset-md-1">
+        <h4 class="field-header">Final Thoughts: </h4>
+        @{string[] FinalThoughts = Model.FinalThoughts.Split(new[] { Environment.NewLine }, StringSplitOptions.None); }
+        @foreach (var statement in FinalThoughts)
+        {
+            <p>@statement</p>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 prev-next">
+        <div class="row">
+            <div class="col-6 text-left">
+                @if (ViewBag.Previous != null)
+                {
+                <a asp-action="Problem" asp-controller="EulerPost" asp-route-eulerpostId="@ViewBag.Previous"><i class="fa fa-arrow-left"></i>&nbsp&nbsp Problem @ViewBag.Previous</a>
+                }
+            </div>
+            <div class="col-6 text-right">
+                @if (ViewBag.Next != null)
+                {
+                <a asp-action="Problem" asp-controller="EulerPost" asp-route-eulerpostId="@ViewBag.Next">Problem @ViewBag.Next &nbsp&nbsp<i class="fa fa-arrow-right"></i></a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1">
+        <h4 class="field-header">Comments:</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1">
+        @if (!IsLoggedIn)
+        {
+            <p class="text-center"><a href="/login">Must be signed in to leave comments</a></p>
+        }
+        else if (!IsConfirmed)
+        {
+            <p class="text-center">Must confirm email before posting comments.</p>
+        }
+        else
+        {
+            <form asp-action="CreateEulerPostComment" asp-controller="EulerPost" asp-route-eulerpostId="@Model.EulerPostId" method="post">
+                <div class="form-group">
+                    <label>Leave a comment as @ViewBag.FirstName: <small>(Please be courteous and respectful.)</small></label>&nbsp<span class="error-message">
+                        @if (ViewBag.ErrorMessage != null)
+                        {@ViewBag.ErrorMessage}
+                    </span>
+                    <input type="hidden" name="EulerPost" value="@Model.EulerPostId" />
+                    <textarea type="text" name="Comment" class="form-control"></textarea>
+                </div>
+                <div class="form-group text-right">
+                    <button class="btn btn-primary">Post Comment</button>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-12 col-sm-10 offset-sm-1" id="comment-container">
+
+        @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+        {
+            string updateCommentUrl = $"/comment/{@comment.CommentId}/update"; ;
+            <div class="row">
+
+                <div class="col-5 offset-1 text-left comment-info"><p><strong>@comment.Author.FirstName @comment.Author.LastName[0].</strong> said:</p></div>
+                <div class="col-6 text-right comment-info"><small>Posted on @comment.CreatedAt.ToString("MMM dd") at @comment.CreatedAt.ToString("h:mm tt")</small></div>
+
+            </div>
+            <div class="row">
+                <div class="col-11 offset-1">
+                    <p class="comment-container">@comment.Content</p>
+                </div>
+                @if (ViewBag.IsAdmin == true || Convert.ToInt32(Context.Session.GetInt32("UserId")) == comment.UserId)
+                {
+                    <div class="col-11 offset-1 comment-edit-links">
+                        <form asp-action="DeleteComment" asp-route-commentId=@comment.CommentId asp-controller="Comment" method="post">
+                            <input type="hidden" name="Delete" />
+                            <div class="form-group text-right">
+                                <a href=@updateCommentUrl class="btn btn-link"><small>Edit Comment</small></a>
+                                <button class="btn btn-link"><small>Delete Comment</small></button>
+                            </div>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+@if (ViewBag.IsAdmin == true)
+{
+    <form asp-action="DeleteEulerPost" asp-route-eulerpostId=@Model.EulerPostId asp-controller="EulerPost" method="post">
+        <input type="hidden" name="Delete" />
+        <div class="form-group text-center">
+            <a href=@UpdateUrl class="btn btn-info">Edit this EulerPost</a>
+            <button class="btn btn-danger">Delete this EulerPost</button>
+        </div>
+    </form>
+}
+

@@ -1,0 +1,128 @@
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = $"Module {Model.ModuleId}";
+    Boolean IsLoggedIn = Context.Session.GetInt32("UserId") != null;
+    Boolean IsConfirmed = Context.Session.GetInt32("IsConfirmed") != null;
+}
+
+@model Module
+@{
+    string UpdateUrl = $"/module/{@Model.ModuleId}/update";
+    string ModuleAssociationUrl = "/module/create/association";
+    Boolean SolvedinPython = Model.PythonCode != null;
+    Boolean SolvedinJavaScript = Model.JavaScriptCode != null;
+    Boolean SolvedinCSharp = Model.CSharpCode != null;
+}
+
+<div class="row header-row" id="module">
+    <div class="col-12 text-center">
+        <h2 id="title">@Model.Name</h2>
+        <p class="datetime-p"><small>Last updated on @Model.UpdatedAt.ToString("MMM dd, yyyy") at @Model.UpdatedAt.ToString("h:mm tt")</small></p>
+        @if (Model.CodeLink != null)
+        {
+            <a href="@Model.CodeLink" target="_blank" rel="noopener noreferrer">Codes on GitHub</a>
+        }
+    </div>
+</div>
+
+@if (Model.Description != null)
+{
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+            <h4 class="field-header">Description: </h4>
+            @{string[] Lines = Model.Description.Split(new[] { Environment.NewLine }, StringSplitOptions.None); }
+            @foreach (var line in Lines)
+            {
+                <p>@line</p>
+            }
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-python-tab" data-toggle="tab" href="#nav-python" role="tab" aria-controls="nav-python" aria-selected="true">Python</a>
+                <a class="nav-item nav-link" id="nav-javascript-tab" data-toggle="tab" href="#nav-javascript" role="tab" aria-controls="nav-javascript" aria-selected="false">JavaScript</a>
+                <a class="nav-item nav-link" id="nav-csharp-tab" data-toggle="tab" href="#nav-csharp" role="tab" aria-controls="nav-csharp" aria-selected="false">CSharp</a>
+            </div>
+        </nav>
+
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-python" role="tabpanel" aria-labelledby="nav-python-tab">
+                <div class="row code-header">
+                    <div class="col-12">
+                        <h4 class="tab-header">@Model.Name implementation in Python</h4>
+                        <pre><code class="python">@Model.PythonCode</code></pre>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-javascript" role="tabpanel" aria-labelledby="nav-javascript-tab">
+                <div class="row code-header">
+                    <div class="col-12">
+                        <h4 class="tab-header">@Model.Name implementation in JavaScript</h4>
+                        <pre><code class="javascript">@Model.JavaScriptCode</code></pre>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-csharp" role="tabpanel" aria-labelledby="nav-csharp-tab">
+                <div class="row code-header">
+                    <div class="col-12">
+                        <h4 class="tab-header">@Model.Name implementation in C#:</h4>
+                        <pre><code class="c#">@Model.CSharpCode</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1">
+        <h4 class="field-header">Used with the following problems: </h4>
+        <table class="table table-sm table-bordered table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th>#</th>
+                    <th>Problem:</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var eulerpost in Model.EulerPosts.OrderBy(e => e.EulerPost.EulerPostId))
+                {
+                    string url = $"/problem/{eulerpost.EulerPost.EulerPostId}";
+                    <tr>
+                        <td>@eulerpost.EulerPost.ProblemNumber</td>
+                        <td><a href=@url>@eulerpost.EulerPost.Title</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <a href="/modules">Back to Modules</a>
+    </div>
+</div>
+
+@if (ViewBag.IsAdmin == true)
+{
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+            <form asp-action="DeleteModule" asp-route-moduleId=@Model.ModuleId asp-controller="Module" method="post">
+                <input type="hidden" name="Delete" />
+                <div class="form-group text-center">
+                    <a href=@ModuleAssociationUrl class="btn btn-info">Create Module Association</a>
+                    <a href=@UpdateUrl class="btn btn-info">Edit this Module</a>
+                    <button class="btn btn-danger">Delete this Module</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+

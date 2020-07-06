@@ -1,0 +1,90 @@
+@{
+    ViewData["Title"] = "Create/Edit a Module";
+}
+
+@model Module
+
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>@ViewBag.Message a Module</h1>
+    </div>
+</div>
+
+@if (ViewBag.Message == "Edit")
+{
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+            <form asp-action="UpdateModule" asp-controller="Module" method="post" asp-route-moduleId="@ViewBag.ModuleId">
+                <div class="form-group">
+                    <label asp-for="Name"></label>&nbsp<span asp-validation-for="Name" class="error-message"></span>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>&nbsp<span asp-validation-for="Description" class="error-message"></span>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CodeLink"></label>&nbsp<span asp-validation-for="CodeLink" class="error-message"></span>
+                    <input asp-for="CodeLink" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="PythonCode"></label>&nbsp<span asp-validation-for="PythonCode" class="error-message"></span>
+                    <textarea asp-for="PythonCode" class="form-control" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="JavaScriptCode"></label>&nbsp<span asp-validation-for="JavaScriptCode" class="error-message"></span>
+                    <textarea asp-for="JavaScriptCode" class="form-control" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CSharpCode"></label>&nbsp<span asp-validation-for="CSharpCode" class="error-message"></span>
+                    <textarea asp-for="CSharpCode" class="form-control" ></textarea>
+                </div>
+                <div class="form-group text-right">
+                    <button class="btn btn-primary">@ViewBag.Message a Module</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+else
+{
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+            <form asp-action="CreateModule" asp-controller="Module" method="post">
+                <div class="form-group">
+                    <label asp-for="Name"></label>&nbsp<span asp-validation-for="Name" class="error-message"></span>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>&nbsp<span asp-validation-for="Description" class="error-message"></span>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CodeLink"></label>&nbsp<span asp-validation-for="CodeLink" class="error-message"></span>
+                    <input asp-for="CodeLink" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="PythonCode"></label>&nbsp<span asp-validation-for="PythonCode" class="error-message"></span>
+                    <textarea asp-for="PythonCode" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="JavaScriptCode"></label>&nbsp<span asp-validation-for="JavaScriptCode" class="error-message"></span>
+                    <textarea asp-for="JavaScriptCode" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CSharpCode"></label>&nbsp<span asp-validation-for="CSharpCode" class="error-message"></span>
+                    <textarea asp-for="CSharpCode" class="form-control"></textarea>
+                </div>
+                <div class="form-group text-right">
+                    <button class="btn btn-primary">@ViewBag.Message a Module</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+
+
+

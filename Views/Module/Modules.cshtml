@@ -1,0 +1,108 @@
+@{
+    ViewData["Title"] = "All Modules";
+}
+
+@model Module[]
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>Modules</h1>
+        <p>All of my reusable code will go in this section</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="d-md-none col-12 table-responsive">
+        <table class="table table-sm table-bordered table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Last updated on</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module module in Model)
+                {
+                    string url = $"/module/{module.ModuleId}";
+                    <tr>
+                        <td><a href=@url>@module.Name</a></td>
+                        <td>@module.UpdatedAt.ToString("MMM dd, yyyy") at @module.UpdatedAt.ToString("h:mm tt")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="d-none d-md-block col-md-12 col-lg-10 offset-lg-1 table-responsive">
+        <table class="table table-sm table-bordered table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Python</th>
+                    <th>JavaScript</th>
+                    <th>C#</th>
+                    <th>Posted On</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module module in Model)
+                {
+                    string url = $"/module/{module.ModuleId}";
+
+                    Boolean SolvedinPython = module.PythonCode != null;
+                    Boolean SolvedinJavaScript = module.JavaScriptCode != null;
+                    Boolean SolvedinCSharp = module.CSharpCode != null;
+                    <tr>
+                        <td><a href=@url>@module.Name</a></td>
+                        @if (SolvedinPython)
+                        {
+                            <td class="text-center"><i class="fa fa-check-square" aria-hidden="true"></i></td>
+                        }
+                        else
+                        {
+                            <td><i></i></td>
+                        }
+
+                        @if (SolvedinJavaScript)
+                        {
+                            <td class="text-center"><i class="fa fa-check-square" aria-hidden="true"></i></td>
+                        }
+                        else
+                        {
+                            <td><i></i></td>
+                        }
+
+                        @if (SolvedinCSharp)
+                        {
+                            <td class="text-center"><i class="fa fa-check-square" aria-hidden="true"></i></td>
+                        }
+                        else
+                        {
+                            <td><i></i></td>
+                        }
+                        <td>@module.CreatedAt.ToString("MMM dd, yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+
+</div>
+
+@if (ViewBag.IsAdmin == true)
+{
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1 text-right">
+            <a href="module/create" class="btn btn-primary">Create a Module</a>
+        </div>
+    </div>
+}
+
+

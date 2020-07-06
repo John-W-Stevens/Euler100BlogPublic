@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Account";
+}
+
+@model User;
+
+<div class="row header-row">
+    <div class="col-12 text-center">
+        <h2>Account Dashboard</h2>
+    </div>
+</div>
+
+<div class="row news-resources-body">
+    <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+        <p class="text-center">@Model.FirstName @Model.LastName - Member since @Model.CreatedAt.ToString("MMM dd, yyyy")</p>
+        <p class="text-center">Email: @Model.Email</p>
+        <p class="text-center">
+            <a asp-action="UpdateAccount" asp-controller="Home" asp-route-userId="@Model.UserId">Edit Account Info</a>&nbsp&nbsp|&nbsp&nbsp
+            <a asp-action="PasswordReset" asp-controller="Home">Reset Password</a>&nbsp&nbsp|&nbsp&nbsp
+            <a asp-action="RemoveAccount" asp-controller="Home" asp-route-userId="@Model.UserId">Remove my account</a>
+        </p>
+    </div>
+</div>
+
+

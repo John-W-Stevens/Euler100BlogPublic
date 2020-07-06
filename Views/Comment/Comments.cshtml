@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "All Comments";
+}
+
+@model Comment[]
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>All Comments</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Content</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Comment comment in Model)
+                {
+                    string url = $"/comment/{comment.CommentId}";
+                <tr>
+                    <td>@comment.CommentId</td>
+                    <td><a href=@url>@comment.Content</a></td>
+                    <td>@comment.CreatedAt</td>
+                    <td>@comment.UpdatedAt</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1 text-right">
+        <a href="comment/create" class="btn btn-primary">Create a Comment</a>
+    </div>
+</div>
+
+

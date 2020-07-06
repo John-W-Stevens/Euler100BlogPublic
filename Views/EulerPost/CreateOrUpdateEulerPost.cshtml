@@ -1,0 +1,162 @@
+@{
+    ViewData["Title"] = "Create/Edit a EulerPost";
+}
+
+@model EulerPost
+
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>@ViewBag.Message a Euler Blog Post</h1>
+    </div>
+</div>
+
+@if (ViewBag.Message == "Edit")
+{
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+            <form asp-action="UpdateEulerPost" asp-controller="EulerPost" method="post" asp-route-eulerpostId="@ViewBag.EulerPostId">
+                <div class="form-group">
+                    <label asp-for="ProblemNumber"></label>&nbsp<span asp-validation-for="ProblemNumber" class="error-message"></span>
+                    <input asp-for="ProblemNumber" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title"></label>&nbsp<span asp-validation-for="Title" class="error-message"></span>
+                    <input asp-for="Title" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Url"></label>&nbsp<span asp-validation-for="Url" class="error-message"></span>
+                    <input asp-for="Url" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Problem"></label>&nbsp<span asp-validation-for="Problem" class="error-message"></span>
+                    <textarea asp-for="Problem" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Observations"></label>&nbsp<span asp-validation-for="Observations" class="error-message"></span>
+                    <textarea asp-for="Observations" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Analysis"></label>&nbsp<span asp-validation-for="Analysis" class="error-message"></span>
+                    <textarea asp-for="Analysis" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TimeComplexity"></label>&nbsp<span asp-validation-for="TimeComplexity" class="error-message"></span>
+                    <input asp-for="TimeComplexity" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="SpaceComplexity"></label>&nbsp<span asp-validation-for="SpaceComplexity" class="error-message"></span>
+                    <input asp-for="SpaceComplexity" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="BigOComplexity"></label>&nbsp<span asp-validation-for="BigOComplexity" class="error-message"></span>
+                    <input asp-for="BigOComplexity" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="PythonCode"></label>&nbsp<span asp-validation-for="PythonCode" class="error-message"></span>
+                    <textarea asp-for="PythonCode" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="JavaScriptCode"></label>&nbsp<span asp-validation-for="JavaScriptCode" class="error-message"></span>
+                    <textarea asp-for="JavaScriptCode" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CSharpCode"></label>&nbsp<span asp-validation-for="CSharpCode" class="error-message"></span>
+                    <textarea asp-for="CSharpCode" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CodeLink"></label>&nbsp<span asp-validation-for="CodeLink" class="error-message"></span>
+                    <textarea asp-for="CodeLink" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FinalThoughts"></label>&nbsp<span asp-validation-for="FinalThoughts" class="error-message"></span>
+                    <textarea asp-for="FinalThoughts" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageUrl"></label>&nbsp<span asp-validation-for="ImageUrl" class="error-message"></span>
+                    <input asp-for="ImageUrl" class="form-control" />
+                </div>
+                <div class="form-group text-right">
+                    <button class="btn btn-primary">@ViewBag.Message a Euler Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+else
+{
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+            <form asp-action="CreateEulerPost" asp-controller="EulerPost" method="post">
+                <div class="form-group">
+                    <label asp-for="ProblemNumber"></label>&nbsp<span asp-validation-for="ProblemNumber" class="error-message"></span>
+                    <input asp-for="ProblemNumber" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title"></label>&nbsp<span asp-validation-for="Title" class="error-message"></span>
+                    <input asp-for="Title" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Url"></label>&nbsp<span asp-validation-for="Url" class="error-message"></span>
+                    <input asp-for="Url" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Problem"></label>&nbsp<span asp-validation-for="Problem" class="error-message"></span>
+                    <textarea asp-for="Problem" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Observations"></label>&nbsp<span asp-validation-for="Observations" class="error-message"></span>
+                    <textarea asp-for="Observations" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Analysis"></label>&nbsp<span asp-validation-for="Analysis" class="error-message"></span>
+                    <textarea asp-for="Analysis" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TimeComplexity"></label>&nbsp<span asp-validation-for="TimeComplexity" class="error-message"></span>
+                    <input asp-for="TimeComplexity" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="SpaceComplexity"></label>&nbsp<span asp-validation-for="SpaceComplexity" class="error-message"></span>
+                    <input asp-for="SpaceComplexity" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="BigOComplexity"></label>&nbsp<span asp-validation-for="BigOComplexity" class="error-message"></span>
+                    <input asp-for="BigOComplexity" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="PythonCode"></label>&nbsp<span asp-validation-for="PythonCode" class="error-message"></span>
+                    <textarea asp-for="PythonCode" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="JavaScriptCode"></label>&nbsp<span asp-validation-for="JavaScriptCode" class="error-message"></span>
+                    <textarea asp-for="JavaScriptCode" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CSharpCode"></label>&nbsp<span asp-validation-for="CSharpCode" class="error-message"></span>
+                    <textarea asp-for="CSharpCode" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CodeLink"></label>&nbsp<span asp-validation-for="CodeLink" class="error-message"></span>
+                    <textarea asp-for="CodeLink" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FinalThoughts"></label>&nbsp<span asp-validation-for="FinalThoughts" class="error-message"></span>
+                    <textarea asp-for="FinalThoughts" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageUrl"></label>&nbsp<span asp-validation-for="ImageUrl" class="error-message"></span>
+                    <input asp-for="ImageUrl" class="form-control" />
+                </div>
+                <div class="form-group text-right">
+                    <button class="btn btn-primary">@ViewBag.Message a Euler Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+
+
+

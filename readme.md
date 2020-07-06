@@ -1,0 +1,2 @@
+This public-facing repo is part of the codebase for my blog: www.euler100blog.net.
+This repo is designed to allow people to see how I designed this project, this repo isn't complete (you can't just take and run the code). If you want to see this code in action please visit the site.

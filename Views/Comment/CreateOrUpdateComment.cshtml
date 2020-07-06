@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Create/Edit a Comment";
+}
+
+@model Comment
+
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>@ViewBag.Message a Comment</h1>
+    </div>
+</div>
+
+@if (ViewBag.Message == "Edit")
+{
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+            <form asp-action="UpdateComment" asp-controller="Comment" method="post" asp-route-commentId="@ViewBag.CommentId">
+
+            <div class="form-group">
+                <label >Edit your comment:</label>&nbsp<span asp-validation-for="Content" class="error-message"></span>
+                <textarea asp-for="Content" class="form-control" ></textarea>
+            </div>
+                <div class="form-group text-right">
+                    <button class="btn btn-primary">@ViewBag.Message a Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+else
+{
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+            <form asp-action="CreateComment" asp-controller="Comment" method="post">
+
+            <div class="form-group">
+                <label asp-for="Content"></label>&nbsp<span asp-validation-for="Content" class="error-message"></span>
+                <textarea asp-for="Content" class="form-control" ></textarea>
+            </div>
+                <div class="form-group text-right">
+                    <button class="btn btn-primary">@ViewBag.Message a Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+
+
+

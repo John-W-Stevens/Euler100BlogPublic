@@ -1,0 +1,141 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+}
+.error-message{
+    font-size: 14px;
+    color: red;
+}
+
+textarea {
+    min-height: 200px;
+    max-height: 300px;
+    overflow: auto;
+}
+
+.header-row{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.header-row#eulerpost {
+    margin-bottom: 15px;
+}
+
+code {
+    white-space: pre-wrap;
+    font-family: Consolas,"courier new";
+}
+
+.code-header{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.field-header {
+    border-bottom: 1px solid lightgrey;
+}
+#comment-container {
+    max-height: 700px;
+    overflow: auto;
+    margin-bottom: 20px;
+}
+
+.comment-container{
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding: 5px 5px;
+    margin-top: -15px !important;
+}
+
+.lr-header{
+    margin-top: 100px;
+    margin-bottom: 15px;
+}
+
+#login-button {
+    width: 100px;
+}
+
+#logged-in-header{
+    margin-top: -15px;
+    margin-bottom: 0px;
+}
+
+.comment-edit-links{
+    margin-top: -25px;
+    margin-bottom: 0px;
+}
+
+.news-resources-body{
+    margin-top: -30px;
+}
+
+.details{
+    margin-bottom: -5px;
+}
+
+#about-header{
+    margin-top:20px;
+}
+
+.datetime-p{
+    margin-top: -10px;
+    margin-bottom: 0px;
+}
+.prev-next{
+    margin-top: 0px;
+    margin-bottom: 10px;
+}

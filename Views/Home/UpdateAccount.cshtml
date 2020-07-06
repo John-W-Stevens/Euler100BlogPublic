@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "Update Account";
+}
+
+@model User
+
+
+<div class="row header-row">
+    <div class="col-12 text-center">
+        <h2>Update your account</h2>
+        <p class="details"><small>Note: Changes to your email will require re-verification</small></p>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12 col-sm-10 offset-sm-1 col-md-6 offset-md-3">
+        <form asp-action="EditAccount" asp-controller="Home" method="post">
+            <div class="form-group">
+                <label asp-for="FirstName"></label>&nbsp<span asp-validation-for="FirstName" class="error-message"></span>
+                <input asp-for="FirstName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>&nbsp<span asp-validation-for="LastName" class="error-message"></span>
+                <input asp-for="LastName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>&nbsp<span asp-validation-for="Email" class="error-message"></span>
+                <input asp-for="Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label >Confirm current password</label>&nbsp<span asp-validation-for="Password" class="error-message"></span>
+                <input asp-for="Password" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label >Confirm current password</label>&nbsp<span asp-validation-for="Confirm" class="error-message"></span>
+                <input asp-for="Confirm" class="form-control" />
+            </div>
+            <div class="text-right form-group">
+                <button class="btn btn-info">Update my account</button>
+            </div>
+        </form>
+    </div>
+</div>

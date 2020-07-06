@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Create/Edit a Module Association";
+}
+
+@model ModuleAssociation
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>@ViewBag.Message a Module Association</h1>
+    </div>
+</div>
+
+
+@if (ViewBag.Message == "Edit")
+{
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+            <form asp-action="UpdateMA" asp-controller="Module" method="post" asp-route-moduleAssociationId="@ViewBag.ModuleAssociationId">
+                <div class="form-group">
+                    <label asp-for="EulerPostId"></label>&nbsp<span asp-validation-for="EulerPostId" class="error-message"></span>
+                    <select asp-for="EulerPostId" class="form-control"
+                            asp-items="@(new SelectList(ViewBag.EulerPosts, "EulerPostId", "Title"))">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ModuleId"></label>&nbsp<span asp-validation-for="ModuleId" class="error-message"></span>
+                    <select asp-for="ModuleId" class="form-control"
+                            asp-items="@(new SelectList(ViewBag.Modules, "ModuleId", "Name"))">
+                    </select>
+                </div>
+                <div class="form-group text-right">
+                    <button class="btn btn-primary">@ViewBag.Message a Module Association</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+else
+{
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+            <form asp-action="CreateMA" asp-controller="Module" method="post" asp-route-moduleAssociationId="@ViewBag.ModuleAssociationId">
+                <div class="form-group">
+                    <label asp-for="EulerPostId"></label>&nbsp<span asp-validation-for="EulerPostId" class="error-message"></span>
+                    <select asp-for="EulerPostId" class="form-control"
+                            asp-items="@(new SelectList(ViewBag.EulerPosts, "EulerPostId", "Title"))">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ModuleId"></label>&nbsp<span asp-validation-for="ModuleId" class="error-message"></span>
+                    <select asp-for="ModuleId" class="form-control"
+                            asp-items="@(new SelectList(ViewBag.Modules, "ModuleId", "Name"))">
+                    </select>
+                </div>
+                <div class="form-group text-right">
+                    <button class="btn btn-primary">@ViewBag.Message a Module Association</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
